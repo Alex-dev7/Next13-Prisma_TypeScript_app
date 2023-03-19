@@ -1,32 +1,46 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import prisma from "../lib/prisma";
+import Router from 'next/router';
 
 export default function FormPost() {
   const [title, setTitle] = useState("");
-  // const router = useRouter()
+  const [content, setContent] = useState("");
+  const router = useRouter()
+  // console.log(title)
 
   // Create a submit post
-  async function submitPost(e: React.FormEvent) {
+  async function submitPost(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const data = await fetch(`${process.env.BASE_URL}/api/createPost`, {
+
+    const form = e.currentTarget
+    const titleInput = form.elements.namedItem("title") as HTMLInputElement
+    const contentInput = form.elements.namedItem("content") as HTMLInputElement
+ 
+    const res = await fetch(`/api/hello`, {
       method: "POST",
-      body: JSON.stringify({ title }),
+      body: JSON.stringify({title: titleInput.value, content: contentInput.value})
     });
-    const response = await data.json();
+    const response = await res.json();
     // this will refresh the page
-    // router.refresh()
+    router.refresh()
     if (!response.ok) console.log(response.message);
   }
+
+  
 
   return (
     <form onSubmit={submitPost}>
       <input
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => setTitle(e.currentTarget.value)}
         value={title}
+        name="title"
         type="text"
       />
-      <button type="submit">Make a post</button>
+      <input  onChange={(e) => setContent(e.currentTarget.value)}
+       type="text" name="content" value={content} />
+      <button type="submit">create</button>
     </form>
   );
 }
