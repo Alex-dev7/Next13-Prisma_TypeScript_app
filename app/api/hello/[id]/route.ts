@@ -12,8 +12,8 @@ export async function GET(request: Request, { params }: any) {
         }
       });
       console.log(data);
-
-    return  NextResponse.json({data})
+      
+    return  NextResponse.json(data)
   }
 
 // DELETE BY ID
@@ -24,9 +24,10 @@ export async function GET(request: Request, { params }: any) {
             id: parseInt(params.id),
         }
       });
-      console.log(data);
+      console.log(data, "this data was deleted successfully");
+      
 
-    return  NextResponse.json({data})
+        return  NextResponse.json({data})
   } 
  
 

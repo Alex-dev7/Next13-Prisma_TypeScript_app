@@ -1,45 +1,60 @@
+// 'use client'
+import Link from "next/link"
 
-import prisma from "../lib/prisma"
-import { GetStaticProps } from "next"
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   const feed = await prisma.post.findMany({
-//     where: {
-//       published: true,
-//     }
-//   });
-//   return {
-//     props: { feed },
-//     revalidate: 10,
-//   };
-// };
 
-async function getPosts() {
-  const response = await fetch(`${process.env.BASE_URL}/api/hello`, {
+async function getData() {
 
-  })
+    const res = await fetch(`${process.env.BASE_URL}/api/hello`, { cache: "no-cache" });
+   
+    const response  = await res.json();
+    // console.log(response)
   
-  if(!response.ok){
-    throw new Error('Failed to fetch data')
-  }
-  const res = response.json()
-  return res
+    return response
+   
 }
+
+async function  handleSubmit(id: number){
+
+
+  const res = await fetch(`/api/hello/${id}`, {
+    method: "DELETE",
+  });
+  // const response = await res.json();
+  // console.log({router}, "router")
+}
+
+
 
 export default async function Home() {
 
-  const data = await getPosts()
-  console.log(data + "ddddddddddddddddddddddddddddddddddddd")
+ const posts = await getData()
+ 
+    
   return (
-    <main className="py-8 px-48">
+    <>
 
+    <main className="py-8 px-48">
+     
       {/* @ts-expect-error Async Server Component */}
-       {data.map((post )=> (
-        <h1 className="text-lg py-6" key={post.id}>
+       {posts.map((post )=> (
+        <div  key={post.id}>
+        <Link  href={{pathname: `/post/${post.id}`}} className="text-lg py-6">
           {post.title}
-          </h1>
+        </Link>
+       
+          {/* <form onSubmit={handleSubmit}>
+            <input type="submit" value="delete" />
+          </form> */}
+          <button onClick={() => handleSubmit(post.id)}>delete</button>       
+        <br/>        
+        </div>
+
        ))}
-    </main>
+    </main>    
+    
+    </>
+
   )
 }
 

@@ -10,6 +10,8 @@ export default function FormPost() {
   const router = useRouter()
   // console.log(title)
 
+
+
   // Create a submit post
   async function submitPost(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -17,15 +19,16 @@ export default function FormPost() {
     const form = e.currentTarget
     const titleInput = form.elements.namedItem("title") as HTMLInputElement
     const contentInput = form.elements.namedItem("content") as HTMLInputElement
- 
+    
     const res = await fetch(`/api/hello`, {
       method: "POST",
       body: JSON.stringify({title: titleInput.value, content: contentInput.value})
     });
     const response = await res.json();
+    console.log({router}, "router")
     // this will refresh the page
     router.refresh()
-    if (!response.ok) console.log(response.message);
+    // if (!response.ok) console.log({response: response.message});
   }
 
   

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { NextResponse, NextRequest } from "next/server"
 import prisma from "@/lib/prisma"
 import { redirect } from 'next/navigation';
 
@@ -10,23 +10,20 @@ type postProps = {
 
 // GET ALL
 
-export async function GET(request: Request){
+export async function GET(request: NextRequest){
 
-    const data = await prisma.post.findMany({
-        where: {
-          published: true,
-        }
-      });
-      console.log(data);
+    const data = await prisma.post.findMany();
+    //   console.log(data);
 
-    return  NextResponse.json({data})
+
+    return  NextResponse.json(data)
 }
 
 
 
 // POST 
 
-export async function POST(request: Request){
+export async function POST(request: NextRequest){
     // const posts: postProps = request.body
     const body = await request.json();
     // console.log(request);
@@ -39,7 +36,7 @@ export async function POST(request: Request){
                             },
                         }
     )
-      console.log(data);
+    //   console.log(data, "data!!!!!!!");
 
-    return  NextResponse.json({data})
+    return  NextResponse.json(data)
 }
