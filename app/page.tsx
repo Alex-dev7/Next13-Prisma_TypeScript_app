@@ -1,6 +1,6 @@
 // 'use client'
 import Link from "next/link"
-
+import Delete from "./Delete";
 
 
 async function getData() {
@@ -14,15 +14,6 @@ async function getData() {
    
 }
 
-async function  handleSubmit(id: number){
-
-
-  const res = await fetch(`/api/hello/${id}`, {
-    method: "DELETE",
-  });
-  // const response = await res.json();
-  // console.log({router}, "router")
-}
 
 
 
@@ -46,7 +37,7 @@ export default async function Home() {
           {/* <form onSubmit={handleSubmit}>
             <input type="submit" value="delete" />
           </form> */}
-          <button onClick={() => handleSubmit(post.id)}>delete</button>       
+          <Delete id={post.id} />     
         <br/>        
         </div>
 

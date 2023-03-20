@@ -27,7 +27,7 @@ export async function GET(request: Request, { params }: any) {
       console.log(data, "this data was deleted successfully");
       
 
-        return  NextResponse.json({data})
+        return  NextResponse.json(data)
   } 
  
 
