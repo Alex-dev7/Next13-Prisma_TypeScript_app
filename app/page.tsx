@@ -33,11 +33,8 @@ export default async function Home() {
         <Link  href={{pathname: `/post/${post.id}`}} className="text-lg py-6">
           {post.title}
         </Link>
-       
-          {/* <form onSubmit={handleSubmit}>
-            <input type="submit" value="delete" />
-          </form> */}
-          <Delete id={post.id} />     
+        <br/>
+          <Delete className='w-8 h-9' id={post.id} />     
         <br/>        
         </div>
 

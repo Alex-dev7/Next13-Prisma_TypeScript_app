@@ -1,11 +1,10 @@
 import { NextRequest } from "next/server"
-
+import UpdateForm from "./UpdateForm";
 
 
 async function getPost(id: number) {
-    console.log(id, "the id")
-    const res = await fetch(`${process.env.BASE_URL}/api/hello/${id}`);
-   
+    // console.log(id, "the id")
+    const res = await fetch(`${process.env.BASE_URL}/api/hello/${id}`, {cache: "no-cache"})
     const response  = await res.json();
     // console.log(response + "--------------------------------")
   
@@ -13,16 +12,21 @@ async function getPost(id: number) {
    
 }
 
+
 export default async function Post({params}: any){
 
     const id = params.id
     const post = await  getPost(id)
 
-    console.log(post)
-    return (
+    // console.log(post)
+    return ( <>
         <div>
             <h1>{post.title}</h1>
             <p>{post?.content}</p>
-        </div>
+        </div>    
+        <UpdateForm id={post.id} title={post.title} content={post.content}/>
+    
+    </>
+
     )
 }

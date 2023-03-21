@@ -11,7 +11,7 @@ export async function GET(request: Request, { params }: any) {
             id: parseInt(params.id),
         }
       });
-      console.log(data);
+    //   console.log(data);
       
     return  NextResponse.json(data)
   }
@@ -35,6 +35,7 @@ export async function GET(request: Request, { params }: any) {
   export async function PUT(request: Request, { params }: any) {
 
     const body = await request.json();
+    console.log("just hiit the route PUT handler")
 
     const data = await prisma.post.update({
         where: {
@@ -43,10 +44,10 @@ export async function GET(request: Request, { params }: any) {
         data: {
             title: body.title,
             content: body.content,
-            published: body.published,
+            // published: body.published,
         }
       });
-      console.log(data);
+    //   console.log(data, "here");
 
-    return  NextResponse.json({data})
+    return  NextResponse.json(data)
   } 

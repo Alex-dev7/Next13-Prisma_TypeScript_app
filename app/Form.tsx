@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import prisma from "../lib/prisma";
-import Router from 'next/router';
+
 
 export default function FormPost() {
   const [title, setTitle] = useState("");
